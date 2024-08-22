@@ -7,7 +7,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
@@ -18,21 +25,30 @@ public class SecurityConfig {
         http.authorizeRequests((requests) -> requests.requestMatchers("/",
                                 "/css/**",
                                 "/js/**",
+                                "/logins",
                                 "/index")
                         .permitAll().requestMatchers("/users")
                         .hasAuthority("Admin").anyRequest().authenticated()
                 )
-                .formLogin(formLogin -> formLogin.loginPage("/login")
+                .oauth2Login(oauth2 ->{
+                    oauth2.userInfoEndpoint(ep ->{
+                        ep.userAuthoritiesMapper(this.userAuthoritiesMapper());
+                    });
+                })
+                .formLogin((form) -> form
+             //           .loginPage("/login")
+                        .permitAll()
+                )
+               /* .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/",true)
                         .failureUrl("/login?error=true")
                         .permitAll()
-                )
-                .logout(logout -> logout.permitAll()
-                        .logoutSuccessUrl("/")
-                )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                )*/
+                .logout((logout) -> {
+                    logout.permitAll()
+                            .logoutSuccessUrl("/");
+                        }
                 )
 
                 .csrf(AbstractHttpConfigurer::disable);
@@ -41,5 +57,24 @@ public class SecurityConfig {
 
 
 
+    }
+
+    private GrantedAuthoritiesMapper userAuthoritiesMapper() {
+
+        return(authorities) ->{
+            List<SimpleGrantedAuthority> authoritiesList = new ArrayList<>();
+
+            authorities.forEach(authority -> {
+                if(authority instanceof OAuth2UserAuthority oAuth2UserAuthority) {
+                    Map<String, Object> userAttributes = oAuth2UserAuthority.getAttributes();
+                    String login = userAttributes.get("logins").toString();
+
+                    if(login.equals("filipdetterfelt")){
+                        authoritiesList.add(new SimpleGrantedAuthority("Admin"));
+                    }
+                }
+            });
+            return authoritiesList;
+        };
     }
 }

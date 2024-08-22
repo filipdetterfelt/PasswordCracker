@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
+@Entity
 public class User {
 
     @Id
@@ -28,8 +29,8 @@ public class User {
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name="roles_id")
+            inverseJoinColumns = @JoinColumn(name = "roles_id")
     )
-    private Set<Role> roles;
+    private Set<Role> role;
 
 }
