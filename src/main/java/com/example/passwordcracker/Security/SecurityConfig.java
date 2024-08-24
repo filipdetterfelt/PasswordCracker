@@ -2,6 +2,7 @@ package com.example.passwordcracker.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -20,61 +23,68 @@ import java.util.Map;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
+    @Bean
+    UserDetailsService userDetailsService() {return new UserDetailServiceIMPL();}
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {return new BCryptPasswordEncoder();}
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        return authProvider;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests((requests) -> requests.requestMatchers("/",
-                                "/css/**",
-                                "/js/**",
-                                "/logins",
-                                "/index")
-                        .permitAll().requestMatchers("/users")
-                        .hasAuthority("Admin").anyRequest().authenticated()
+        http
+                .authorizeRequests((requests) -> requests
+                        .requestMatchers("/", "/css/**", "/js/**", "/index").permitAll()
+                        .requestMatchers("/users").hasAuthority("Admin")
+                        .anyRequest().authenticated()
                 )
-                .oauth2Login(oauth2 ->{
-                    oauth2.userInfoEndpoint(ep ->{
-                        ep.userAuthoritiesMapper(this.userAuthoritiesMapper());
-                    });
-                })
-                .formLogin((form) -> form
-             //           .loginPage("/login")
-                        .permitAll()
-                )
-               /* .formLogin(formLogin -> formLogin.loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/",true)
-                        .failureUrl("/login?error=true")
-                        .permitAll()
+               /* .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/oauth2/authorization/github")
+                        .defaultSuccessUrl("/cracker", true)
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userAuthoritiesMapper(this.userAuthoritiesMapper())
+                        )
+                        .defaultSuccessUrl("/cracker", true)
                 )*/
-                .logout((logout) -> {
-                    logout.permitAll()
-                            .logoutSuccessUrl("/");
-                        }
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login") // Custom login page
+                        .defaultSuccessUrl("/cracker", true)
+                        .failureUrl("/login?error")
+                        .permitAll()
                 )
-
+                .logout(logout -> logout
+                        .permitAll()
+                        .logoutSuccessUrl("/")
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                )
                 .csrf(AbstractHttpConfigurer::disable);
-
-        return http.build();
-
-
+                return http.build();
 
     }
 
-    private GrantedAuthoritiesMapper userAuthoritiesMapper() {
-
-        return(authorities) ->{
+   /* private GrantedAuthoritiesMapper userAuthoritiesMapper() {
+        return authorities -> {
             List<SimpleGrantedAuthority> authoritiesList = new ArrayList<>();
-
             authorities.forEach(authority -> {
-                if(authority instanceof OAuth2UserAuthority oAuth2UserAuthority) {
+                if (authority instanceof OAuth2UserAuthority oAuth2UserAuthority) {
                     Map<String, Object> userAttributes = oAuth2UserAuthority.getAttributes();
-                    String login = userAttributes.get("logins").toString();
-
-                    if(login.equals("filipdetterfelt")){
+                    String login = userAttributes.get("/").toString();
+                    if (login.equals("filipdetterfelt")) {
                         authoritiesList.add(new SimpleGrantedAuthority("Admin"));
                     }
                 }
             });
             return authoritiesList;
         };
-    }
+    }*/
 }
