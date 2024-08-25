@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href = "@{/css/styles.css}">
 </head>
 <body>
+<div class="login-container">
+    <form class="login-form">
 
+        <label>ORIGINAL</label>
+        <br>
+        <pre th:text="${savedPassword}"></pre>
+        <br>
+
+        <label>MD5</label>
+        <br>
+        <pre></pre>
+        <br>
+
+        <label>SHA256</label>
+        <br>
+        <pre></pre>
+    </form>
+</div>
 </body>
 </html>

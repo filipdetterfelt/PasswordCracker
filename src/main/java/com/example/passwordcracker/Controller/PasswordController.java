@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PasswordController {
 
      FileConfig fileConfig;
+     String savedPassword = "";
 
      @Autowired
      public PasswordController(FileConfig fileConfig) {
@@ -26,8 +27,16 @@ public class PasswordController {
         return "redirect:/success";
     }
 
+    @PostMapping("/save-password")
+    public String savePassword(@RequestParam String password , Model model) {
+        savedPassword = password;
+        model.addAttribute("savedPassword", savedPassword);
+        return "success";
+    }
+
     @GetMapping("/success")
-    public String success() {
+    public String success(Model model) {
+         model.addAttribute("savedPassword", savedPassword);
         return "success";
     }
 }

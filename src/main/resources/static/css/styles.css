@@ -67,3 +67,17 @@ body{
     background-color: #E5C100;
 }
 
+pre{
+    width: 500px;
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #FFD700;
+    background-color: #222;
+    color: #FFD700;
+    overflow: auto; /* Add scrollbars if needed */
+    white-space: pre-wrap; /* Wrap text inside <pre> */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    text-align: center; /* Center text */
+}
