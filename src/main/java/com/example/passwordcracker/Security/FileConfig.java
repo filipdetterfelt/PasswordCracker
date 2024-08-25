@@ -9,15 +9,10 @@ import java.security.NoSuchAlgorithmException;
 
 @Service
 public class FileConfig {
-    public void fileWritingAndReading(String passwordForm){
+    public void fileWriting(String passwordForm){
         String outputText = "src/main/java/com/example/passwordcracker/Files/Hashedtext.txt";
-      //  String inputText = "C:/Users/filli/IdeaProjects/PasswordCracker/src/main/java/com/example/passwordcracker/FIles/Text.txt";
-
-        try (//BufferedReader reader = new BufferedReader(new FileReader(inputText));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(outputText, true))) {
-
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputText, true))) {
             String password;
-            //while ((password = reader.readLine()) != null) {
                 if (passwordForm != null && !passwordForm.isEmpty()) {
                     String hashedPasswordSHA256 = sha256(passwordForm);
                     String hashedPasswordMD5 = MD5(passwordForm);
@@ -25,9 +20,21 @@ public class FileConfig {
                     writer.newLine();
                     System.out.println("Skriver till fil: " + passwordForm);
                 }
-          //  }
             System.out.println("Färdig med att skriva till fil.");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fileReading(){
+        String path = "src/main/java/com/example/passwordcracker/Files/Hashedtext.txt";
+        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        }
+        catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -70,16 +77,5 @@ public class FileConfig {
         catch(NoSuchAlgorithmException e){ throw new RuntimeException(e);
         }
 
-    }
-
-    public void testFileWriting() {
-        String filePath = "C:/Users/filli/IdeaProjects/PasswordCracker/src/main/java/com/example/passwordcracker/FIles/Hashedtext.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write("Test line");
-            writer.newLine();
-            System.out.println("Test line written to file.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
