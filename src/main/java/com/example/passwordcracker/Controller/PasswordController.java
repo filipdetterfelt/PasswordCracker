@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PasswordController {
 
-    FileConfig fileConfig;
+     FileConfig fileConfig;
+
+     @Autowired
+     public PasswordController(FileConfig fileConfig) {
+         this.fileConfig = fileConfig;
+     }
 
     @PostMapping("/submit-password")
-    public String submitPassword(@RequestParam String password, Model model) {
+    public String submitPassword(String password , Model model) {
+         model.addAttribute("password", password);
         fileConfig.fileWritingAndReading(password);
-        model.addAttribute("password", password);
         return "redirect:/success";
     }
 

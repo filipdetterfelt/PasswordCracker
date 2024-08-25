@@ -9,22 +9,23 @@ import java.security.NoSuchAlgorithmException;
 
 @Service
 public class FileConfig {
-    public void fileWritingAndReading(String password){
-        String outputText = "C:/Users/filli/IdeaProjects/PasswordCracker/src/main/java/com/example/passwordcracker/FIles/Hashedtext.txt";
-        String inputText = "C:/Users/filli/IdeaProjects/PasswordCracker/src/main/java/com/example/passwordcracker/FIles/Text.txt";
+    public void fileWritingAndReading(String passwordForm){
+        String outputText = "src/main/java/com/example/passwordcracker/Files/Hashedtext.txt";
+      //  String inputText = "C:/Users/filli/IdeaProjects/PasswordCracker/src/main/java/com/example/passwordcracker/FIles/Text.txt";
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputText));
+        try (//BufferedReader reader = new BufferedReader(new FileReader(inputText));
              BufferedWriter writer = new BufferedWriter(new FileWriter(outputText, true))) {
 
-            while ((password = reader.readLine()) != null) {
-                if (password != null && !password.isEmpty()) {
-                    String hashedPasswordSHA256 = sha256(password);
-                    String hashedPasswordMD5 = MD5(password);
-                    writer.write(password + " : SHA256 = " + hashedPasswordSHA256 + " MD5 = " + hashedPasswordMD5);
+            String password;
+            //while ((password = reader.readLine()) != null) {
+                if (passwordForm != null && !passwordForm.isEmpty()) {
+                    String hashedPasswordSHA256 = sha256(passwordForm);
+                    String hashedPasswordMD5 = MD5(passwordForm);
+                    writer.write(passwordForm + " : SHA256 = " + hashedPasswordSHA256 + " MD5 = " + hashedPasswordMD5);
                     writer.newLine();
-                    System.out.println("Skriver till fil: " + password);
+                    System.out.println("Skriver till fil: " + passwordForm);
                 }
-            }
+          //  }
             System.out.println("Färdig med att skriva till fil.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,18 +43,17 @@ public class FileConfig {
                 if(hex.length() == 1)
                 {
                     hexString.append('0');
-                    hexString.append(hex);
 
                 }
-                return hexString.toString();
+                hexString.append(hex);
             }
-
+            return hexString.toString();
 
         }
         catch (Exception e){ throw new RuntimeException(e);
 
         }
-        return password;
+
     }
 
     public static String MD5(String password){
