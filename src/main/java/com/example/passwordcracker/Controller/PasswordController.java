@@ -23,7 +23,7 @@ public class PasswordController {
     @PostMapping("/submit-password")
     public String submitPassword(String password , Model model) {
          model.addAttribute("password", password);
-        fileConfig.fileWritingAndReading(password);
+        fileConfig.fileWriting(password);
         return "redirect:/success";
     }
 
@@ -31,6 +31,7 @@ public class PasswordController {
     public String savePassword(@RequestParam String password , Model model) {
         savedPassword = password;
         model.addAttribute("savedPassword", savedPassword);
+        System.out.println(savedPassword);
         return "success";
     }
 
