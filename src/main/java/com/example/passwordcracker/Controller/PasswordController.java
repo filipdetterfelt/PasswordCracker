@@ -45,4 +45,9 @@ public class PasswordController {
          model.addAttribute("savedPassword", savedPassword);
         return "success";
     }
+
+    /*@GetMapping("/passwordis")
+    public String passwordis(@RequestParam String password, Model model) {
+
+    }*/
 }

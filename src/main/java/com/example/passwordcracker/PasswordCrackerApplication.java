@@ -1,5 +1,6 @@
 package com.example.passwordcracker;
 
+import com.example.passwordcracker.Security.FileConfig;
 import com.example.passwordcracker.Security.SecurityConfig;
 import com.example.passwordcracker.Security.UserDataSeeder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class PasswordCrackerApplication {
     @Autowired
     SecurityConfig security;
 
+    @Autowired
+    FileConfig fileConfig;
+
     public static void main(String[] args) {
         SpringApplication.run(PasswordCrackerApplication.class, args);
     }
@@ -25,6 +29,7 @@ public class PasswordCrackerApplication {
     CommandLineRunner commandLineRunner(){
         return args -> {
             userDataSeeder.seed();
+            fileConfig.crackPassword();
         };
     }
 

@@ -39,6 +39,38 @@ public class FileConfig {
         }
     }
 
+    public void crackPassword(){
+       // File originalFile = new File("hashed.txt");
+        String cPw = "src/main/java/com/example/passwordcracker/Files/commonPasswords.txt";
+        String hPw = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
+        String md5Password = "";
+        String sha256Password = "";
+
+          //  if(!originalFile.exists()) {
+            //    File newFile = new File(hPw);
+
+                try (BufferedReader reader = new BufferedReader(new FileReader(cPw));
+                     BufferedWriter writer = new BufferedWriter(new FileWriter(hPw, false))) {
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        md5Password = MD5(line);
+                        sha256Password = sha256(line);
+                        writer.write(line + " : " + md5Password + " : " + sha256Password);
+                        writer.newLine();
+                        writer.flush();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+           // }
+    }
+
+    public void crackMD5(){
+
+    }
+
 
     public static String sha256(String password){
         try{
