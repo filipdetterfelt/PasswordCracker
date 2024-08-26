@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="login-container">
-    <form class="login-form">
+    <form action="/submit-password" method="post" class="login-form">
 
         <label>ORIGINAL</label>
         <br>
@@ -16,13 +16,18 @@
 
         <label>MD5</label>
         <br>
-        <pre></pre>
+        <pre th:text="${md5}"></pre>
         <br>
 
         <label>SHA256</label>
         <br>
-        <pre></pre>
+        <pre th:text="${sha}"></pre>
+        <br>
+        <label>Search a hash</label>
+        <br>
+        <input class="input-login" type="text">
     </form>
 </div>
 </body>
 </html>
+

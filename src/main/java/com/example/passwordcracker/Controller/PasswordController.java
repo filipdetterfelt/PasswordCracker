@@ -20,17 +20,22 @@ public class PasswordController {
          this.fileConfig = fileConfig;
      }
 
-    @PostMapping("/submit-password")
+   /* @PostMapping("/submit-password")
     public String submitPassword(String password , Model model) {
          model.addAttribute("password", password);
         fileConfig.fileWriting(password);
         return "redirect:/success";
-    }
+    }*/
 
-    @PostMapping("/save-password")
-    public String savePassword(@RequestParam String password , Model model) {
+    @PostMapping("/submit-password")
+    public String savePassword(@RequestParam String password, Model model) {
         savedPassword = password;
+        String md5 = fileConfig.MD5(password);
+        String sha = fileConfig.sha256(password);
         model.addAttribute("savedPassword", savedPassword);
+        model.addAttribute("md5" , md5);
+        model.addAttribute("sha", sha);
+        fileConfig.fileWriting(password);
         System.out.println(savedPassword);
         return "success";
     }
