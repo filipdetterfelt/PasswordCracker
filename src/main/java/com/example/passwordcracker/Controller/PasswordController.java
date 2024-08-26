@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PasswordController {
 
-     FileConfig fileConfig;
+     private final FileConfig fileConfig;
      String savedPassword = "";
 
      @Autowired
@@ -40,14 +40,29 @@ public class PasswordController {
         return "success";
     }
 
+
     @GetMapping("/success")
     public String success(Model model) {
          model.addAttribute("savedPassword", savedPassword);
         return "success";
     }
 
-    /*@GetMapping("/passwordis")
-    public String passwordis(@RequestParam String password, Model model) {
+    @PostMapping("/passwordis")
+    public String searchPassword(@RequestParam String searchHash,
+                                 @RequestParam String hashType,
+                                 Model model) {
 
-    }*/
+        String searchPassword = "";
+        if("md5".equals(hashType)){
+            searchPassword = fileConfig.deHashMD5(searchHash);
+        }
+        else if("sha256".equals(hashType)){
+            searchPassword = fileConfig.deHashSHA256(searchHash);
+        }
+
+        model.addAttribute("deHashedPassword", searchPassword);
+        return "passwordis";
+    }
 }
+
+

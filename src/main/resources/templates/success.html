@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="login-container">
-    <form action="/submit-password" method="post" class="login-form">
+    <form action="/passwordis" method="post" class="login-form">
 
     <div>
         <label>ORIGINAL</label>
@@ -28,10 +28,11 @@
         <div class="hash-form">
             <label>Search a hash</label>
             <br>
-        <input class="input-login" type="text">
-        <button type="submit" class="login-btn">Search MD5</button>
+        <input class="input-login" type="text" name="searchHash" required>
             <br>
-            <button type="submit" class="login-btn">Search SHA256</button>
+        <button type="submit" class="login-btn" name="hashType" value="md5">Search MD5</button>
+            <br>
+            <button type="submit" class="login-btn" name="hashType" value="sha256">Search SHA256</button>
         </div>
     </form>
 </div>

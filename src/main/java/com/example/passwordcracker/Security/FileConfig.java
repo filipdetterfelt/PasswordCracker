@@ -9,6 +9,10 @@ import java.security.NoSuchAlgorithmException;
 
 @Service
 public class FileConfig {
+
+    String cPw = "src/main/java/com/example/passwordcracker/Files/commonPasswords.txt";
+    String hPw = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
+
     public void fileWriting(String passwordForm){
         String outputText = "src/main/java/com/example/passwordcracker/Files/Hashedtext.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputText, true))) {
@@ -41,8 +45,6 @@ public class FileConfig {
 
     public void crackPassword(){
        // File originalFile = new File("hashed.txt");
-        String cPw = "src/main/java/com/example/passwordcracker/Files/commonPasswords.txt";
-        String hPw = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
         String md5Password = "";
         String sha256Password = "";
 
@@ -67,8 +69,39 @@ public class FileConfig {
            // }
     }
 
-    public void crackMD5(){
+    public String deHashMD5(String actualHash){
+        try(BufferedReader reader = new BufferedReader(new FileReader(hPw))){
+            String raw;
+            while ((raw = reader.readLine()) != null){
+                String[] parts = raw.split(" : ");
 
+
+                if(parts.length == 3 && parts[1].equals(actualHash)){
+                    return "Password is: " + parts[0];
+                }
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return "Can not find any match";
+    }
+
+    public String deHashSHA256(String actualHash){
+        try(BufferedReader reader = new BufferedReader(new FileReader(hPw))){
+            String raw;
+            while ((raw = reader.readLine()) != null){
+                String[] parts = raw.split(" : ");
+
+                if(parts.length == 3 && parts[2].equals(actualHash)){
+                    return "Password is: " + parts[0];
+                }
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return "Can not find any match";
     }
 
 
