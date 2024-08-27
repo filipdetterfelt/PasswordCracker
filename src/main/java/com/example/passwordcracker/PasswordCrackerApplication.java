@@ -21,15 +21,20 @@ public class PasswordCrackerApplication {
     @Autowired
     FileConfig fileConfig;
 
-    public static void main(String[] args) {
-        SpringApplication.run(PasswordCrackerApplication.class, args);
+    public static void main(String[] args) throws Exception {
+        if(args.length == 0) {
+            SpringApplication.run(PasswordCrackerApplication.class, args);
+        }
+        else if(args[0].equals("HashPasswordApp") ) {
+            new HashPasswordApp().run();
+        }
     }
 
     @Bean
     CommandLineRunner commandLineRunner(){
         return args -> {
             userDataSeeder.seed();
-            fileConfig.crackPassword();
+            //fileConfig.crackPassword();
         };
     }
 

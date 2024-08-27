@@ -46,24 +46,21 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests((requests) -> requests
-                        .requestMatchers("/", "/css/**", "/js/**", "/index").permitAll()
+                        .requestMatchers("/", "/css/**", "/js/**", "/index" ,"/oauth2/**").permitAll()
                         .requestMatchers("/users").hasAuthority("Admin")
                         .anyRequest().authenticated()
                 )
-               /* .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/oauth2/authorization/github")
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/")
                         .defaultSuccessUrl("/cracker", true)
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userAuthoritiesMapper(this.userAuthoritiesMapper())
-                        )
-                        .defaultSuccessUrl("/cracker", true)
-                )*/
-                .formLogin(formLogin -> formLogin
+                )
+
+              /*  .formLogin(formLogin -> formLogin
                         .loginPage("/login") // Custom login page
                         .defaultSuccessUrl("/cracker", true)
                         .failureUrl("/login?error")
                         .permitAll()
-                )
+                )*/
                 .logout(logout -> logout
                         .permitAll()
                         .logoutSuccessUrl("/")
@@ -79,7 +76,7 @@ public class SecurityConfig {
 
 
 
-   /* private GrantedAuthoritiesMapper userAuthoritiesMapper() {
+    private GrantedAuthoritiesMapper userAuthoritiesMapper() {
         return authorities -> {
             List<SimpleGrantedAuthority> authoritiesList = new ArrayList<>();
             authorities.forEach(authority -> {
@@ -93,5 +90,5 @@ public class SecurityConfig {
             });
             return authoritiesList;
         };
-    }*/
+    }
 }

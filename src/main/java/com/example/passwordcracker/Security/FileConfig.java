@@ -10,8 +10,8 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public class FileConfig {
 
-    String cPw = "src/main/java/com/example/passwordcracker/Files/commonPasswords.txt";
-    String hPw = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
+    public String cPw = "src/main/java/com/example/passwordcracker/Files/commonPasswords.txt";
+    public String hPw = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
 
     public void fileWriting(String passwordForm){
         String outputText = "src/main/java/com/example/passwordcracker/Files/Hashedtext.txt";
