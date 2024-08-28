@@ -25,7 +25,12 @@ public class HomeController {
     }
 
     @GetMapping("/cracker")
-    String cracker() {
+    String cracker(Model model) {
+        if(! model.containsAttribute("sha")) {
+            model.addAttribute("sha","");
+            model.addAttribute("md5","");
+            model.addAttribute("password","");
+        }
         return "cracker";
     }
 

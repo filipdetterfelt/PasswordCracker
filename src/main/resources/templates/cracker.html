@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org/" lang="">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,11 +7,35 @@
 </head>
 <body>
 <div class="login-container">
-<form action="/submit-password" method="post" class="login-form">
-    <h2>Write a text</h2>
-    <input class="input-login" type="text" name="password" placeholder="Enter a password" required >
-    <button type="submit" class="login-btn">Send</button>
-</form>
+
+    <form action="/submit-password" method="post" class="login-form">
+        <div class="hash-form">
+            <h2>Write a text</h2>
+            <input class="input-login" type="text" name="password" placeholder="Enter a password" required>
+            <button type="submit" class="login-btn">Send</button>
+            <a href="/success" class="login-btn">Write </a>
+        </div>
+    </form>
+
 </div>
+
+<th:block th:if="${password} != '' ">
+    <br><br><br>
+    <div>
+        <label>ORIGINAL</label>
+        <br>
+        <pre th:text="${password}"></pre>
+        <br>
+
+        <label>MD5</label>
+        <br>
+        <pre th:text="${md5}"></pre>
+        <br>
+
+        <label>SHA256</label>
+        <br>
+        <pre th:text="${sha}"></pre>
+    </div>
+</th:block>
 </body>
 </html>
