@@ -19,22 +19,20 @@
         <button type="submit" class="login-btn" name="hashType" value="md5">Search MD5</button>
             <br>
             <button type="submit" class="login-btn" name="hashType" value="sha256">Search SHA256</button>
+            <br>
             <a href="/cracker" class="login-btn">Write a password </a>
+
+            <th:block th:if="${password} != '' ">
+                <div class="result-container">
+                    <h2>Password result</h2>
+                    <p th:text="${password}"></p>
+
+                </div>
+            </th:block>
         </div>
     </form>
-</div>
-
-<th:block th:if="${password} != '' ">
-<div class="result-container">
-    <h2>Password result</h2>
-    <br>
-    <p th:text="${password}"></p>
 
 </div>
-</th:block>
-
-
-
 </body>
 </html>
 
