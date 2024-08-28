@@ -14,13 +14,13 @@ public class FileConfig {
     public String hPw = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
 
     public void fileWriting(String passwordForm){
-        String outputText = "src/main/java/com/example/passwordcracker/Files/Hashedtext.txt";
+        String outputText = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputText, true))) {
             String password;
                 if (passwordForm != null && !passwordForm.isEmpty()) {
                     String hashedPasswordSHA256 = sha256(passwordForm);
                     String hashedPasswordMD5 = MD5(passwordForm);
-                    writer.write(passwordForm + " : SHA256 = " + hashedPasswordSHA256 + " MD5 = " + hashedPasswordMD5);
+                    writer.write(passwordForm + " : " + hashedPasswordMD5+ " : " +  hashedPasswordSHA256);
                     writer.newLine();
                     System.out.println("Skriver till fil: " + passwordForm);
                 }
@@ -60,7 +60,7 @@ public class FileConfig {
                         sha256Password = sha256(line);
                         writer.write(line + " : " + md5Password + " : " + sha256Password);
                         writer.newLine();
-                        writer.flush();
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
