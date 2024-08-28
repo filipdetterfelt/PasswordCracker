@@ -28,7 +28,7 @@ public class PasswordController {
     }*/
 
     @PostMapping("/submit-password")
-    public String savePassword(@RequestParam String password, RedirectAttributes rda, Model model) {
+    public String savePassword(@RequestParam String password, RedirectAttributes rda) {
         savedPassword = password;
         String md5 = fileConfig.MD5(password);
         String sha = fileConfig.sha256(password);
@@ -51,18 +51,18 @@ public class PasswordController {
     @PostMapping("/passwordis")
     public String searchPassword(@RequestParam String searchHash,
                                  @RequestParam String hashType,
-                                 Model model) {
+                                 RedirectAttributes rda) {
 
-        String searchPassword = "";
+        String password = "";
         if("md5".equals(hashType)){
-            searchPassword = fileConfig.deHashMD5(searchHash);
+            password = fileConfig.deHashMD5(searchHash);
         }
         else if("sha256".equals(hashType)){
-            searchPassword = fileConfig.deHashSHA256(searchHash);
+            password = fileConfig.deHashSHA256(searchHash);
         }
 
-        model.addAttribute("deHashedPassword", searchPassword);
-        return "passwordis";
+        rda.addFlashAttribute("password", password);
+        return "redirect:/success";
     }
 }
 

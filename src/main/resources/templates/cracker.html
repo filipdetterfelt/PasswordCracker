@@ -10,10 +10,10 @@
 
     <form action="/submit-password" method="post" class="login-form">
         <div class="hash-form">
-            <h2>Write a text</h2>
+            <h2>Write a password</h2>
             <input class="input-login" type="text" name="password" placeholder="Enter a password" required>
             <button type="submit" class="login-btn">Send</button>
-            <a href="/success" class="login-btn">Write </a>
+            <a href="/success" class="login-btn">Write a hash </a>
         </div>
     </form>
 
@@ -37,5 +37,6 @@
         <pre th:text="${sha}"></pre>
     </div>
 </th:block>
+
 </body>
 </html>
