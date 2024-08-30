@@ -1,0 +1,52 @@
+/* Grundläggande styling för hela sidan */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: #FFD700;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+/* Container för att centrera innehållet */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Styling för rubriken */
+h1 {
+    font-size: 5rem;
+    color: #dc3545; /* Röd färg för att indikera ett fel */
+    margin: 0;
+}
+
+/* Styling för textparagrafer */
+p {
+    font-size: 1.25rem;
+    margin: 10px 0;
+}
+
+/* Styling för länk */
+a {
+    color: #dc3545;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Styling för felbilden */
+.error-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}

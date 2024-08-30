@@ -53,4 +53,9 @@ public class HomeController {
             return "redirect:/login?userNotFound";
         }
     }
+
+    @GetMapping("/loginerror")
+    String loginerror() {
+        return "loginerror";
+    }
 }

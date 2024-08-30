@@ -55,12 +55,12 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/cracker", true)
                 )
 
-              /*  .formLogin(formLogin -> formLogin
+                .formLogin(formLogin -> formLogin
                         .loginPage("/login") // Custom login page
                         .defaultSuccessUrl("/cracker", true)
-                        .failureUrl("/login?error")
+                        .failureUrl("/loginerror")
                         .permitAll()
-                )*/
+                )
                 .logout(logout -> logout
                         .permitAll()
                         .logoutSuccessUrl("/")
