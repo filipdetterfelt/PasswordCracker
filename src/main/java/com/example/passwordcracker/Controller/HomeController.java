@@ -14,6 +14,7 @@ public class HomeController {
     private final UserDetailServiceIMPL userDetailService;
     private final UserService userService;
 
+
     public HomeController(UserDetailServiceIMPL userDetailService, UserService userService) {
         this.userDetailService = userDetailService;
         this.userService = userService;
@@ -58,4 +59,11 @@ public class HomeController {
     String loginerror() {
         return "loginerror";
     }
+
+    @GetMapping("/register")
+    String register() {
+        return "register";
+    }
+
+
 }
