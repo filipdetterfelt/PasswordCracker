@@ -30,7 +30,6 @@ body{
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    width: 300px;
 }
 
 #login-form h2{
@@ -137,6 +136,9 @@ pre{
 }
 
 .wrong-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #dc3545;
 }
 
