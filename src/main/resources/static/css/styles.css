@@ -23,11 +23,14 @@ body{
     padding: 20px;
 }
 
+
+
 #login-form{
     background-color: #333;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    width: 300px;
 }
 
 #login-form h2{
@@ -132,3 +135,37 @@ pre{
 .git-btn img:hover{
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
 }
+
+.wrong-login{
+    color: #dc3545;
+}
+
+.password-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.pw-item{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pw-item label,
+.pw-item pre,
+.pw-item button{
+    margin-right: 10px;
+}
+
+.pw-item pre{
+    flex-grow: 1;
+}
+
+.copy-pw{
+    margin-left: 10px;
+    background-color: black;
+    border: none;
+    cursor: pointer;
+
+}
+
