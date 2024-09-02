@@ -57,6 +57,9 @@ body{
     cursor: pointer;
     margin-top: 10px;
     text-align: center;
+    display: inline-block;
+    line-height: 40px;
+    text-decoration: none;
 }
 
 
