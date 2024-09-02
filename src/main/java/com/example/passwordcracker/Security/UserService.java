@@ -17,7 +17,10 @@ public class UserService implements UserDetailsService {
     public User dtoToUser(UserDTO dto){
         return User.builder()
                 .id(dto.getId())
-                .userName(dto.getUsername())
+                .userName(dto.getUserName())
+                .firstname(dto.getFirstname())
+                .lastname(dto.getLastname())
+                .phone(dto.getPhone())
                 .password(hashPassword(dto.getPassword()))
                 .build();
     }
@@ -25,7 +28,7 @@ public class UserService implements UserDetailsService {
     public UserDTO userToDto(User user){
         return UserDTO.builder()
                 .id(user.getId())
-                .username(user.getUserName())
+                .userName(user.getUserName())
                 .password(user.getPassword())
                 .build();
     }
