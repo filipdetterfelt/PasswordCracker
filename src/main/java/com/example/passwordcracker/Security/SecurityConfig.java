@@ -47,12 +47,14 @@ public class SecurityConfig {
         http
                 .authorizeRequests((requests) -> requests
                         .requestMatchers("/", "/css/**", "/js/**", "/index" ,"/oauth2/**").permitAll()
-                        .requestMatchers("/users").hasAuthority("Admin")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/users","/cracker", "/success").hasAnyAuthority("Admin","Client")
+                        .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/")
                         .defaultSuccessUrl("/cracker", true)
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userAuthoritiesMapper(userAuthoritiesMapper()))
                 )
 
                 .formLogin(formLogin -> formLogin
@@ -75,14 +77,18 @@ public class SecurityConfig {
 
 
 
-
-    private GrantedAuthoritiesMapper userAuthoritiesMapper() {
+    @Bean
+    public GrantedAuthoritiesMapper userAuthoritiesMapper() {
         return authorities -> {
             List<SimpleGrantedAuthority> authoritiesList = new ArrayList<>();
             authorities.forEach(authority -> {
+
                 if (authority instanceof OAuth2UserAuthority oAuth2UserAuthority) {
+                    System.out.println("In");
                     Map<String, Object> userAttributes = oAuth2UserAuthority.getAttributes();
-                    String login = userAttributes.get("/").toString();
+                    String login = userAttributes.get("login").toString();
+                    userAttributes.keySet().forEach(System.out::println);
+
                     if (login.equals("filipdetterfelt")) {
                         authoritiesList.add(new SimpleGrantedAuthority("Admin"));
                     }
