@@ -10,18 +10,22 @@
 <body>
 
 <h1 class="header">WELCOME TO CRACKER !</h1>
+
 <div class="login-container">
     <form id="login-form" action="/login" method="post">
         <h2>Log in</h2>
         <br>
         <label for="username">Username</label>
         <br>
-        <input class="input-login" type="text" id="username" name="username">
+        <input class="input-login" type="text" id="username" name="username" oninput="clearLoginmsg()">
         <br>
 
         <label for="password">Password</label>
         <br>
-        <input class="input-login" type="password" id="password" name="password">
+        <input class="input-login" type="password" id="password" name="password" oninput="clearLoginmsg()">
+        <div id="error-msg" th:if="${param.error}" class="wrong-login">
+            Wrong username or password,<br> Please try again! :)
+        </div>
         <br>
         <button type="submit" class="login-btn">Log in</button>
         <br>
@@ -31,13 +35,10 @@
         <a href="/oauth2/authorization/github" class="git-btn">
             <img src="/Images/github.png" alt="gitlogo"/>
         </a>
-
-        <div th:if="${param.error}" class="wrong-login">
-            Wrong username or password, Please try again!
-        </div>
     </form>
 </div>
 
+<script src="/Js/clearingLoginmsg.js"></script>
 
 </body>
 </html>
