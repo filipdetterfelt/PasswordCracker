@@ -25,23 +25,38 @@
 <div class="login-container">
 <th:block th:if="${password} != '' ">
     <br><br><br>
-    <div>
+    <div class="password-container">
         <label>ORIGINAL</label>
+        <div class="pw-item">
         <br>
-        <pre th:text="${password}"></pre>
+        <pre id="originalText" th:text="${password}"></pre>
+        <button class="copy-pw" onclick="copyPaste('originalText')">
+            <img src="/Images/copy.png" alt="copylogo">
+        </button>
         <br>
+        </div>
 
         <label>MD5</label>
+        <div class="pw-item">
         <br>
-        <pre th:text="${md5}"></pre>
+        <pre id="md5Text" th:text="${md5}"></pre>
+        <button class="copy-pw" onclick="copyPaste('md5Text')">
+            <img src="/Images/copy.png" alt="copylogo">
+        </button>
         <br>
+        </div>
 
         <label>SHA256</label>
+        <div class="pw-item">
         <br>
-        <pre th:text="${sha}"></pre>
+        <pre id="shaText" th:text="${sha}"></pre>
+        <button class="copy-pw" onclick="copyPaste('shaText')">
+            <img src="/Images/copy.png" alt="copylogo">
+        </button>
+        </div>
     </div>
 </th:block>
 </div>
-
+<script src="/Js/copy.js"></script>
 </body>
 </html>
