@@ -36,8 +36,8 @@ public class HomeController {
         this.userRepo = userRepo;
     }
 
-    @GetMapping("/")
-    String index() {
+    @GetMapping("/index")
+    public String index(Model model) {
         return "index";
     }
 
