@@ -96,7 +96,7 @@ public class HomeController {
         roles.add(role);
         user.setRole(roles);
         userRepo.save(user);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
 
