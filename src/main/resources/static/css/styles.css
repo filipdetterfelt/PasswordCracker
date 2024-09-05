@@ -117,13 +117,16 @@ pre{
     border-radius: 10px;
 }
 
-.git-btn{
-    display: block;
-    margin-top: 20px;
-    text-align: center;
+oauthLogin-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
-.git-btn img{
+
+.git-btn img,
+.google-btn img{
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -131,7 +134,8 @@ pre{
     cursor: pointer;
 }
 
-.git-btn img:hover{
+.git-btn img:hover,
+.google-btn img:hover{
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
 }
 
