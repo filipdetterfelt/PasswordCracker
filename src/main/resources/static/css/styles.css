@@ -1,4 +1,5 @@
 body{
+    font-family: 'OCR A Extended', monospace;
     background-color: black;
     color: #FFD700;
     margin: 0;
@@ -83,6 +84,7 @@ body{
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    line-height: 40px;
 }
 
 pre{
