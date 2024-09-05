@@ -58,7 +58,7 @@ public class SecurityConfig {
                 )
 
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login") // Custom login page
+                        .loginPage("/login")
                         .defaultSuccessUrl("/cracker", true)
                         .failureUrl("/index?error=true")
                         .permitAll()
@@ -86,12 +86,31 @@ public class SecurityConfig {
                 if (authority instanceof OAuth2UserAuthority oAuth2UserAuthority) {
                     System.out.println("In");
                     Map<String, Object> userAttributes = oAuth2UserAuthority.getAttributes();
-                    String login = userAttributes.get("login").toString();
-                    userAttributes.keySet().forEach(System.out::println);
 
-                    if (login.equals("filipdetterfelt")) {
-                        authoritiesList.add(new SimpleGrantedAuthority("Admin"));
+                    if(userAttributes.containsKey("login")) {
+                        Object loginObj = userAttributes.get("login");
+                        if (loginObj != null) {
+                            String login = userAttributes.get("login").toString();
+                            if (login.equals("filipdetterfelt")) {
+                                authoritiesList.add(new SimpleGrantedAuthority("Admin"));
+                            }
+                        }
                     }
+
+
+
+                    else if (userAttributes.containsKey("email")){
+                        Object emailObj = userAttributes.get("email");
+                        if(emailObj != null) {
+                            String email = userAttributes.get("email").toString();
+                            if (email.equals("fillip.detterfelt@gmail.com")) {
+                                authoritiesList.add(new SimpleGrantedAuthority("Admin"));
+                            }
+                        }
+                    }
+
+
+
                 }
             });
             return authoritiesList;
