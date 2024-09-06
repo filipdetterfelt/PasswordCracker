@@ -16,7 +16,6 @@ public class FileConfig {
     public void fileWriting(String passwordForm){
         String outputText = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputText, true))) {
-            String password;
                 if (passwordForm != null && !passwordForm.isEmpty()) {
                     String hashedPasswordSHA256 = sha256(passwordForm);
                     String hashedPasswordMD5 = MD5(passwordForm);
@@ -30,26 +29,10 @@ public class FileConfig {
         }
     }
 
-    public void fileReading(){
-        String path = "src/main/java/com/example/passwordcracker/Files/Hashedtext.txt";
-        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 
     public void crackPassword(){
-       // File originalFile = new File("hashed.txt");
         String md5Password = "";
         String sha256Password = "";
-
-          //  if(!originalFile.exists()) {
-            //    File newFile = new File(hPw);
 
                 try (BufferedReader reader = new BufferedReader(new FileReader(cPw));
                      BufferedWriter writer = new BufferedWriter(new FileWriter(hPw, false))) {

@@ -20,12 +20,6 @@ public class PasswordController {
          this.fileConfig = fileConfig;
      }
 
-   /* @PostMapping("/submit-password")
-    public String submitPassword(String password , Model model) {
-         model.addAttribute("password", password);
-        fileConfig.fileWriting(password);
-        return "redirect:/success";
-    }*/
 
     @PostMapping("/submit-password")
     public String savePassword(@RequestParam String password, RedirectAttributes rda) {

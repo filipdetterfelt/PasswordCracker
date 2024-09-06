@@ -38,7 +38,6 @@ public class PasswordCrackerApplication {
 
         return args -> {
             userDataSeeder.seed();
-            //fileConfig.crackPassword();
         };
     }
 
