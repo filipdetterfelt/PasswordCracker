@@ -8,34 +8,50 @@
 
 </head>
 <body>
-    <div class="login-container">
-        <form class="login-form" action="/register" th:object="${newUser}" method="post">
-            <h2>Register account</h2>
-            <br>
-            <label for="email">Email:</label>
-            <br>
-            <input class="input-login" type="text" id="email" name="email" placeholder="email.example.com" th:field="*{userName}">
-            <br>
-            <label for="firstname">First name:</label>
-            <br>
-            <input class="input-login" type="text" id="firstname" name="firstname" placeholder="Name" th:field="*{firstname}" required minLength="1" maxlength="100" pattern="[A-Öa-ö ]+" >
-            <br>
-            <label for="lastname">Last name:</label>
-            <br>
-            <input class="input-login" type="text" id="lastname" name="lastname" placeholder="Lastname" th:field="*{lastname}">
-            <br>
-            <label for="phone">Phone:</label>
-            <br>
-            <input class="input-login" type="text" id="phone" name="phone" placeholder="0701234567" th:field="*{phone}">
-            <br>
-            <label for="password">Password:</label>
-            <br>
-            <input class="input-login" type="password" id="password" name="password" placeholder="********" th:field="*{password}">
-            <br>
-            <button class="login-btn" type="submit">Register</button>
-            <br>
-            <a href="/" class="login-btn">Home </a>
-        </form>
-    </div>
+<div class="login-container">
+    <form class="login-form" action="/register" th:object="${newUser}" method="post">
+        <h2>Register account</h2>
+        <br>
+        <label for="email">Email:</label>
+        <br>
+        <input class="input-login" type="email" id="email" name="email" placeholder="email@example.com" th:field="*{userName}" required>
+        <div th:if="${#fields.hasErrors('userName')}" class="error-message">
+            <p th:errors="${#fields.hasErrors('userName')}">Invalid email format</p>
+        </div>
+        <br>
+        <label for="firstname">First name:</label>
+        <br>
+        <input class="input-login" type="text" id="firstname" name="firstname" placeholder="First name" th:field="*{firstname}" required minlength="1" maxlength="100" pattern="[A-Za-z ]+">
+        <div th:if="${#fields.hasErrors('firstname')}" class="error-message">
+            <p th:errors="${#fields.hasErrors('firstname')}">Invalid first name. Only letters and spaces are allowed.</p>
+        </div>
+        <br>
+        <label for="lastname">Last name:</label>
+        <br>
+        <input class="input-login" type="text" id="lastname" name="lastname" placeholder="Last name" th:field="*{lastname}" required minlength="1" maxlength="100" pattern="[A-Za-z ]+">
+        <div th:if="${#fields.hasErrors('lastname')}" class="error-message">
+            <p th:errors="${#fields.hasErrors('lastname')}">Invalid last name. Only letters and spaces are allowed.</p>
+        </div>
+        <br>
+        <label for="phone">Phone:</label>
+        <br>
+        <input class="input-login" type="tel" id="phone" name="phone" placeholder="0701234567" th:field="*{phone}" required minlength="10" maxlength="10" pattern="[0-9]{10}">
+        <div th:if="${#fields.hasErrors('phone')}" class="error-message">
+            <p th:errors="${#fields.hasErrors('phone')}">Invalid phone number. Must be exactly 10 digits.</p>
+        </div>
+        <br>
+        <label for="password">Password:</label>
+        <br>
+        <input class="input-login" type="password" id="password" name="password" placeholder="********" th:field="*{password}" required minlength="6" maxlength="1000" pattern="(?=.*[A-Z])(?=.*\d).+">
+        <div th:if="${#fields.hasErrors('password')}" class="error-message">
+            <p th:errors="${#fields.hasErrors('password')}">Invalid password. Must be at least 6 characters long, contain at least one uppercase letter and one number.</p>
+        </div>
+        <br>
+        <button class="login-btn" type="submit">Register</button>
+        <br>
+        <a href="/" class="login-btn">Home</a>
+    </form>
+</div>
+
 </body>
 </html>

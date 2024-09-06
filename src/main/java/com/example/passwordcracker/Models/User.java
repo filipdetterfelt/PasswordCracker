@@ -37,7 +37,7 @@ public class User {
     private String firstname;
 
     @Size(min = 1, max = 1000, message = "Your name is to short or to long you need minimum 1 character and maximum 1000")
-    @Pattern(regexp = "^[a-zA-Z ]+$")
+    @Pattern(regexp = "^[a-zA-Z ]+$", message = "Your name can only contains letters")
     private String lastname;
 
     @Size(min = 10, max = 10, message = "Phone number need to be 10 numbers")
