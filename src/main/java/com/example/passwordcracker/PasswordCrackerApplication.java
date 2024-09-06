@@ -3,6 +3,7 @@ package com.example.passwordcracker;
 import com.example.passwordcracker.Security.FileConfig;
 import com.example.passwordcracker.Security.SecurityConfig;
 import com.example.passwordcracker.Security.UserDataSeeder;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,11 +33,16 @@ public class PasswordCrackerApplication {
 
     @Bean
     CommandLineRunner commandLineRunner(){
+        Dotenv dotenv = Dotenv.load();
+        dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
+
         return args -> {
             userDataSeeder.seed();
             //fileConfig.crackPassword();
         };
     }
+
+
 
 
 

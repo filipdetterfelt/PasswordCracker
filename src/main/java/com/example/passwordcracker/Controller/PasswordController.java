@@ -44,7 +44,9 @@ public class PasswordController {
 
     @GetMapping("/success")
     public String success(Model model) {
-         model.addAttribute("savedPassword", savedPassword);
+        if(!model.containsAttribute("password")) {
+            model.addAttribute("password", "");
+        }
         return "success";
     }
 
@@ -64,6 +66,7 @@ public class PasswordController {
         rda.addFlashAttribute("password", password);
         return "redirect:/success";
     }
+
 }
 
 

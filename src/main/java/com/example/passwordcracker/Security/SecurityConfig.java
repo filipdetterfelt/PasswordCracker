@@ -1,5 +1,6 @@
 package com.example.passwordcracker.Security;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -27,6 +28,7 @@ import java.util.Map;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+    Dotenv dotenv = Dotenv.load();
 
     @Bean
     UserDetailsService userDetailsService() {return new UserDetailServiceIMPL();}
@@ -91,8 +93,11 @@ public class SecurityConfig {
                         Object loginObj = userAttributes.get("login");
                         if (loginObj != null) {
                             String login = userAttributes.get("login").toString();
-                            if (login.equals("filipdetterfelt")) {
+                            if (login.equals(dotenv.get("GITHUB_ADMIN"))) {
                                 authoritiesList.add(new SimpleGrantedAuthority("Admin"));
+                            }
+                            else{
+                                authoritiesList.add(new SimpleGrantedAuthority("Client"));
                             }
                         }
                     }
@@ -103,8 +108,11 @@ public class SecurityConfig {
                         Object emailObj = userAttributes.get("email");
                         if(emailObj != null) {
                             String email = userAttributes.get("email").toString();
-                            if (email.equals("fillip.detterfelt@gmail.com")) {
+                            if (email.equals(dotenv.get("GOOGLE_ADMIN"))) {
                                 authoritiesList.add(new SimpleGrantedAuthority("Admin"));
+                            }
+                            else{
+                                authoritiesList.add(new SimpleGrantedAuthority("Client"));
                             }
                         }
                     }
