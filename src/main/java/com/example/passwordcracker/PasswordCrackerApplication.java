@@ -1,6 +1,6 @@
 package com.example.passwordcracker;
 
-import com.example.passwordcracker.Security.FileConfig;
+import com.example.passwordcracker.Services.FileConfigService;
 import com.example.passwordcracker.Security.SecurityConfig;
 import com.example.passwordcracker.Security.UserDataSeeder;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -20,7 +20,7 @@ public class PasswordCrackerApplication {
     SecurityConfig security;
 
     @Autowired
-    FileConfig fileConfig;
+    FileConfigService fileConfigService;
 
     public static void main(String[] args) throws Exception {
         if(args.length == 0) {
@@ -42,16 +42,5 @@ public class PasswordCrackerApplication {
     }
 
 
-
-
-
-
-
-   /* @Bean
-    CommandLineRunner hashPassword() {
-        return args -> {
-         security.fileWritingAndReading();
-        };
-    }*/
 
 }

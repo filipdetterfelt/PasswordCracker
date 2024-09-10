@@ -1,6 +1,6 @@
 package com.example.passwordcracker.Controller;
 
-import com.example.passwordcracker.Security.FileConfig;
+import com.example.passwordcracker.Services.FileConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,25 +12,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class PasswordController {
 
-     private final FileConfig fileConfig;
+     private final FileConfigService fileConfigService;
      String savedPassword = "";
 
      @Autowired
-     public PasswordController(FileConfig fileConfig) {
-         this.fileConfig = fileConfig;
+     public PasswordController(FileConfigService fileConfigService) {
+         this.fileConfigService = fileConfigService;
      }
 
 
     @PostMapping("/submit-password")
     public String savePassword(@RequestParam String password, RedirectAttributes rda) {
         savedPassword = password;
-        String md5 = fileConfig.MD5(password);
-        String sha = fileConfig.sha256(password);
+        String md5 = fileConfigService.MD5(password);
+        String sha = fileConfigService.sha256(password);
         rda.addFlashAttribute("md5", md5);
         rda.addFlashAttribute("sha", sha);
         rda.addFlashAttribute("password", password);
 
-        fileConfig.fileWriting(password);
+        fileConfigService.fileWriting(password);
         System.out.println(savedPassword);
         return "redirect:/cracker";
     }
@@ -51,10 +51,10 @@ public class PasswordController {
 
         String password = "";
         if("md5".equals(hashType)){
-            password = fileConfig.deHashMD5(searchHash);
+            password = fileConfigService.deHashMD5(searchHash);
         }
         else if("sha256".equals(hashType)){
-            password = fileConfig.deHashSHA256(searchHash);
+            password = fileConfigService.deHashSHA256(searchHash);
         }
 
         rda.addFlashAttribute("password", password);

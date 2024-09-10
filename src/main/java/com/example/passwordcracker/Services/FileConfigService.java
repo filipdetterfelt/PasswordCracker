@@ -1,4 +1,4 @@
-package com.example.passwordcracker.Security;
+package com.example.passwordcracker.Services;
 
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Service
-public class FileConfig {
+public class FileConfigService {
 
     public String cPw = "src/main/java/com/example/passwordcracker/Files/commonPasswords.txt";
     public String hPw = "src/main/java/com/example/passwordcracker/Files/hashed.txt";
